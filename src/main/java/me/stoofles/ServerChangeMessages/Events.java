@@ -15,8 +15,8 @@ public class Events implements Listener {
 
     @EventHandler
     public void onPostLogin(PostLoginEvent event) {
+        TextComponent message = new TextComponent("+ " + event.getPlayer().getName());
         for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-            TextComponent message = new TextComponent("+ " + event.getPlayer().getName());
             player.sendMessage(message);
         }
     }
@@ -34,6 +34,8 @@ public class Events implements Listener {
     @EventHandler
     public void onPostLeave(PlayerDisconnectEvent event){
         TextComponent message = new TextComponent("- " + event.getPlayer());
-        ProxyServer.getInstance().broadcast(message);
+        for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+            player.sendMessage(message);
+        }
     }
 }
