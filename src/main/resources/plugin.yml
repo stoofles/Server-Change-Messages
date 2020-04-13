@@ -1,0 +1,4 @@
+name: TestPlugin
+main: me.stoofles.ServerChangeMessages.ServerChangeMessages
+version: "0.2.1"
+author: username
