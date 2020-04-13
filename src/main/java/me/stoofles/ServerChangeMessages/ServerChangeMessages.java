@@ -10,8 +10,7 @@ public class ServerChangeMessages extends Plugin {
         getLogger().info("ServerChangeMessages has loaded.");
     }
     @Override
-    public void onDisable()
-    {
+    public void onDisable() {
         getLogger().info( "ServerChangeMessages disabled!" );
     }
 }
