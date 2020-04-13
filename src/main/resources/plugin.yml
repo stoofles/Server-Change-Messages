@@ -1,4 +1,5 @@
-name: TestPlugin
+name: ServerChangeMessages
+description: "a plugin that broadcasts when a player switches servers"
 main: me.stoofles.ServerChangeMessages.ServerChangeMessages
 version: "0.2.1-1"
-author: username
+author: stoofles
