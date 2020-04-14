@@ -1,6 +1,5 @@
 package me.stoofles.ServerChangeMessages;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -18,20 +17,31 @@ public class ServerChangeMessages extends Plugin {
         setInstance(this);
         getProxy().getPluginManager().registerListener(this, new Events());
 
-        file = new File(ProxyServer.getInstance().getPluginsFolder() +  "/ServerChangeMessages/config.yml");
-
+        if(!getDataFolder().exists()){
+            getDataFolder().mkdir();
+        }
 
         try {
-            if(!file.exists()){
-                file.createNewFile();
-                configuration.set("join_message", "");
-                configuration.set("leave_message", "");
-                configuration.set("switch_message", "");
-            }
+            file = new File(getDataFolder(), "config.yml");
             configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
-            ConfigurationProvider.getProvider(YamlConfiguration.class).save(configuration, file);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            configuration.set("join_message", "");
+            configuration.set("leave_message", "");
+            configuration.set("switch_message", "");
+            try {
+                ConfigurationProvider.getProvider(YamlConfiguration.class).save(configuration, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         getLogger().info("has loaded.");
