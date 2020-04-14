@@ -20,6 +20,7 @@ public class ServerChangeMessages extends Plugin {
 
         file = new File(ProxyServer.getInstance().getPluginsFolder() +  "/ServerChangeMessages/config.yml");
 
+
         try {
             if(!file.exists()){
                 file.createNewFile();
