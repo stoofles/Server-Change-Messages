@@ -21,28 +21,32 @@ public class ServerChangeMessages extends Plugin {
             getDataFolder().mkdir();
         }
 
-        try {
-            file = new File(getDataFolder(), "config.yml");
-            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        file = new File(getDataFolder(), "config.yml");
         if(!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            configuration.set("join_message", "");
-            configuration.set("leave_message", "");
-            configuration.set("switch_message", "");
+
             try {
+                configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+                configuration.set("join_message", "+ {username}");
+                configuration.set("leave_message", "- {username}");
+                configuration.set("switch_message", "{username} > {destination_server}");
                 ConfigurationProvider.getProvider(YamlConfiguration.class).save(configuration, file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            try {
+                configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+
 
         getLogger().info("has loaded.");
     }
